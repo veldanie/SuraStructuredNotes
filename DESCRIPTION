@@ -1,0 +1,11 @@
+Package: SuraStructuredNotes
+Type: Package
+Title: Sura Asset Management Structured Products
+Version: 0.1.0
+Author: Daniel Velasquez <daniel.velasquez@sura-am.com>
+Maintainer: Daniel Velasquez <daniel.velasquez@sura-am.com>
+Description: Set of funtion to build, value and report structured products.
+License: SUAM
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 6.0.1
