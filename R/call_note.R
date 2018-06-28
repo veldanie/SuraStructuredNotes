@@ -116,7 +116,8 @@ call_note <-function(ini_date, mat_date, fix_index_date, fix_spot_date, ini_date
   bond_pr_denom=denom*bond_pr_prot/nom_prot
   call_pr_denom=pr_denom_prot-bond_pr_denom
   }
-  return(list(pr_cash_pay=round(pr_cash_pay, round_digits), pr_cash_prot=round(pr_cash_prot, round_digits), pr_perc_prot=round(pr_perc_prot, round_digits), pr_denom_prot=round(pr_denom_prot, round_digits), call_pr_pay=round(call_pr_pay, round_digits),
+  return(list(pr_cash_pay=round(pr_cash_pay, round_digits), pr_cash_prot=round(pr_cash_prot, round_digits), pr_perc_prot=round(pr_perc_prot, round_digits), pr_denom_prot=round(pr_denom_prot, round_digits),
+              nom_call = round(nom_call, round_digits), call_pr_pay=round(call_pr_pay, round_digits), call_pr_index_unit = round(opt_pr_index_curr, round_digits),
               bond_pr_pay=round(bond_pr_pay, round_digits), bond_pr_prot=round(bond_pr_prot, round_digits), bond_pr_denom=round(bond_pr_denom, round_digits), call_pr_denom=round(call_pr_denom, round_digits),
               strike=round(strike, round_digits), index_vol=round(vol, round_digits),
               bond_rate_pay=round(cc_rate_pay, round_digits), bond_rate_prot=round(cc_rate_prot, round_digits), days_mat=dmat, index_spot=round(index_spot, round_digits), quanto_spot=round(quanto_spot, round_digits),vol_quanto=round(vol_quanto, round_digits), rho=round(rho, round_digits),
