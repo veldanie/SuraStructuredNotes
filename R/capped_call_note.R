@@ -75,7 +75,7 @@ capped_call_note <-function(ini_date, mat_date, fix_index_date, fix_spot_date, i
       quanto_call <- quanto_spot
       nom_call=cash_conv(nom_pay,curr_in=pay_curr, spot=quanto, spot_id=quanto_id)
   }
-
+  nom_index_units <- nom_call*b/index_ini
   r_call=r
   if(type=="v"){
     if(is.na(opt_pr1)){
@@ -90,8 +90,9 @@ capped_call_note <-function(ini_date, mat_date, fix_index_date, fix_spot_date, i
     }else{
       opt_pr_index_curr2 <- opt_pr2/quanto_call
     }
-    call_pr1 <- (nom_call*b/index_ini)*opt_pr1
-    call_pr2 <- (nom_call*b/index_ini)*opt_pr2
+
+    call_pr1 <- nom_index_units*opt_pr1
+    call_pr2 <- nom_index_units*opt_pr2
   }
   if(type=="a"){
     if(is.na(opt_pr1)){
@@ -100,8 +101,8 @@ capped_call_note <-function(ini_date, mat_date, fix_index_date, fix_spot_date, i
     if(is.na(opt_pr2)){
       opt_pr2 <- bs_asian(ini_date=ini_date,spot=index_spot, strike=strike2, quanto=quanto_call, v=vol2, vq=vol_quanto, rho=rho, r=r_call, rf=rf, rq=rq, mat_date=mat_date, ini_date_avg=ini_date_avg, fin_date_avg=fin_date_avg, c_p = "call", float_strike=float_strike, geometric=geometric, rate_type = rate_type,  base=base, M=1e3, index_series=index_series, settDays=settDays)
     }
-    call_pr1=(nom_call*b/index_ini)*opt_pr1
-    call_pr2=(nom_call*b/index_ini)*opt_pr2
+    call_pr1=nom_index_units*opt_pr1
+    call_pr2=nom_index_units*opt_pr2
   }
 
   call_pr=call_pr1-call_pr2
@@ -133,7 +134,7 @@ capped_call_note <-function(ini_date, mat_date, fix_index_date, fix_spot_date, i
   call_pr_denom=pr_denom_prot-bond_pr_denom
   }
   return(list(pr_cash_pay=round(pr_cash_pay, round_digits), pr_cash_prot=round(pr_cash_prot, round_digits), pr_perc_prot=round(pr_perc_prot, round_digits), pr_denom_prot=round(pr_denom_prot, round_digits),
-              nom_call = round(nom_call, round_digits), call_pr_pay1=round(call_pr1, round_digits),call_pr_pay2=round(call_pr2, round_digits),
+              nom_call = round(nom_call, round_digits), nom_index_units = round(nom_index_units, round_digits), call_pr_pay1=round(call_pr1, round_digits),call_pr_pay2=round(call_pr2, round_digits),
               call_pr_index_unit1=round(opt_pr_index_curr1, round_digits), call_pr_index_unit2=round(opt_pr_index_curr2, round_digits),
               bond_pr_pay=round(bond_pr_pay, round_digits), bond_pr_prot=round(bond_pr_prot, round_digits), bond_pr_denom=round(bond_pr_denom, round_digits), call_pr_denom=round(call_pr_denom, round_digits),
               strike1=round(strike1, round_digits), strike2=round(strike2, round_digits), index_vol1=round(vol1, round_digits), index_vol2=round(vol2, round_digits),

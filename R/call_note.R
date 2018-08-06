@@ -45,7 +45,7 @@ call_note <-function(ini_date, mat_date, fix_index_date, fix_spot_date, ini_date
   }
 
 
-  nom_call=nom_pay
+  nom_call <- nom_pay
 
   if(!pay_curr_risk){
     quanto_call <- quanto
@@ -69,7 +69,7 @@ call_note <-function(ini_date, mat_date, fix_index_date, fix_spot_date, ini_date
       quanto_call <- quanto_spot
       nom_call=cash_conv(nom_pay,curr_in=pay_curr, spot=quanto, spot_id=quanto_id)
   }
-
+  nom_index_units <- nom_call*b/index_ini
   r_call=r
   if(drift_cero){r_call=rf=0}
   if(type=="v"){
@@ -79,7 +79,7 @@ call_note <-function(ini_date, mat_date, fix_index_date, fix_spot_date, ini_date
     }else{
       opt_pr_index_curr <- opt_pr/quanto_call
     }
-    call_pr=(nom_call*b/index_ini)*opt_pr
+    call_pr=nom_index_units*opt_pr
   }
   if(type=="a"){
     if(is.na(opt_pr)){
@@ -90,7 +90,7 @@ call_note <-function(ini_date, mat_date, fix_index_date, fix_spot_date, ini_date
     }
   }
 
-    call_pr=(nom_call*b/index_ini)*opt_pr
+    call_pr=nom_index_units*opt_pr
 
 
   fwd_pr=ifelse(dspot>=1,fx_spot+fwd_points[dspot],fx_spot)
@@ -117,7 +117,7 @@ call_note <-function(ini_date, mat_date, fix_index_date, fix_spot_date, ini_date
   call_pr_denom=pr_denom_prot-bond_pr_denom
   }
   return(list(pr_cash_pay=round(pr_cash_pay, round_digits), pr_cash_prot=round(pr_cash_prot, round_digits), pr_perc_prot=round(pr_perc_prot, round_digits), pr_denom_prot=round(pr_denom_prot, round_digits),
-              nom_call = round(nom_call, round_digits), call_pr_pay=round(call_pr_pay, round_digits), call_pr_index_unit = round(opt_pr_index_curr, round_digits),
+              nom_call = round(nom_call, round_digits), nom_index_units = round(nom_index_units, round_digits), call_pr_pay=round(call_pr_pay, round_digits), call_pr_index_unit = round(opt_pr_index_curr, round_digits),
               bond_pr_pay=round(bond_pr_pay, round_digits), bond_pr_prot=round(bond_pr_prot, round_digits), bond_pr_denom=round(bond_pr_denom, round_digits), call_pr_denom=round(call_pr_denom, round_digits),
               strike=round(strike, round_digits), index_vol=round(vol, round_digits),
               bond_rate_pay=round(cc_rate_pay, round_digits), bond_rate_prot=round(cc_rate_prot, round_digits), days_mat=dmat, index_spot=round(index_spot, round_digits), quanto_spot=round(quanto_spot, round_digits),vol_quanto=round(vol_quanto, round_digits), rho=round(rho, round_digits),
